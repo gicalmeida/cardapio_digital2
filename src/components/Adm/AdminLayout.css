@@ -1,0 +1,106 @@
+/* Container principal dividindo tela em 2 colunas */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #fcf8f6;
+}
+
+/* 1. BARRA LATERAL (SIDEBAR) */
+.admin-sidebar {
+  width: 260px;
+  background-color: #fff0f3; /* Rosa claro da paleta */
+  border-right: 1px solid #f2d6dc;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1rem;
+  box-sizing: border-box;
+}
+
+/* Limitador de tamanho da logo para não estourar a tela */
+.sidebar-logo {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.sidebar-logo img {
+  max-width: 140px;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* Menu de Navegação */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1rem;
+  border: none;
+  background: transparent;
+  border-radius: 12px;
+  color: #5c4033;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover, .nav-item.active {
+  background-color: #e5a3b3; /* Rosa destaque */
+  color: #ffffff;
+}
+
+.sidebar-sair-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid #e5a3b3;
+  background: transparent;
+  border-radius: 12px;
+  color: #c86d82;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: auto;
+}
+
+/* 2. ÁREA PRINCIPAL DA DIREITA */
+.admin-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-topbar {
+  background-color: #ffffff;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #f2d6dc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-topbar h2 {
+  margin: 0;
+  color: #5c4033;
+  font-family: 'Playfair Display', serif;
+}
+
+.btn-sair-topbar {
+  background: none;
+  border: none;
+  color: #c86d82;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.admin-page-body {
+  padding: 2rem;
+  flex: 1;
+}

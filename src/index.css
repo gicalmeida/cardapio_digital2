@@ -1,0 +1,46 @@
+:root {
+  --bg-main: #FAF5EF;
+  --bg-card: #FFFFFF;
+  --pink-primary: #E5A3B3;
+  --pink-hover: #D88F9E;
+  --pink-light: #FBEBED;
+  --pink-banner: #F3C3CC;
+  --text-dark: #4A3B32;
+  --text-muted: #7D6E65;
+  --border-color: #E8D8CD;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Poppins', sans-serif;
+  --shadow-soft: 0 4px 15px rgba(184, 137, 135, 0.12);
+  --shadow-modal: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-dark);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

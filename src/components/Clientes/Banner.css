@@ -1,0 +1,170 @@
+.banner-container {
+  position: relative;
+  height: 420px;
+  overflow: hidden;
+  background-color: #2b231f;
+}
+
+.banner-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  display: flex;
+  align-items: center;
+  padding: 0 5rem;
+}
+
+.banner-slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.15) 70%);
+}
+
+.banner-content {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  max-width: 520px;
+}
+
+.banner-title {
+  font-family: var(--font-serif);
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.banner-subtitle {
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  opacity: 0.9;
+}
+
+.banner-btn {
+  display: inline-block;
+  background-color: var(--pink-primary);
+  color: #fff;
+  padding: 0.6rem 2rem;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.banner-btn:hover {
+  background-color: var(--pink-hover);
+}
+
+/* Setas de navegação */
+.banner-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  backdrop-filter: blur(4px);
+}
+
+.banner-arrow:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.banner-arrow.left { left: 1.5rem; }
+.banner-arrow.right { right: 1.5rem; }
+
+/* Indicadores (Dots) */
+.banner-carousel-indicators {
+  position: absolute;
+  bottom: 3.5rem;
+  left: 5rem;
+  z-index: 10;
+  display: flex;
+  gap: 0.6rem;
+}
+
+.banner-carousel-indicators .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.banner-carousel-indicators .dot.active {
+  background-color: #ffffff;
+  transform: scale(1.2);
+}
+
+.banner-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 5;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.banner-wave svg {
+  display: block;
+  width: 100%;
+  height: 45px;
+}
+
+.whatsapp-float-btn {
+  position: absolute;
+  right: 2rem;
+  bottom: 3.5rem;
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  background-color: var(--pink-primary);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s;
+}
+
+.whatsapp-float-btn:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .banner-container {
+    height: 320px;
+  }
+  .banner-slide {
+    padding: 0 2rem;
+  }
+  .banner-title {
+    font-size: 2rem;
+  }
+  .banner-carousel-indicators {
+    left: 2rem;
+    bottom: 3rem;
+  }
+}
