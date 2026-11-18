@@ -108,12 +108,6 @@ export default function ModalProduto({ produto, onFechar, onAdicionarAoPedido })
                 >
                   Descrição
                 </button>
-                <button 
-                  className={`tab-btn ${abaAtiva === 'ingredientes' ? 'active' : ''}`}
-                  onClick={() => setAbaAtiva('ingredientes')}
-                >
-                  Ingredientes
-                </button>
               </div>
 
               <div className="modal-tab-content">

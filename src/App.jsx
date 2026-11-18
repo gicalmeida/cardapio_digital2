@@ -4,11 +4,16 @@ import Banner from './components/Clientes/Banner';
 import Destaques from './components/Clientes/Destaques';
 import ListaProdutos from './components/Clientes/ListaProdutos';
 import ModalProduto from './components/commum/ModalProduto';
+import CarrinhoModal from './components/Clientes/Carrinho';
 import Sobre from './components/Clientes/Sobre';
 import Footer from './components/Clientes/Footer';
 import AdminLayout from './components/Adm/AdminLayout';
 
-// Importação de todos os dados do arquivo produtos.js (incluindo o bannerSlides)
+// Importação dos modais de login e status
+import AdminLogin from './components/Adm/AdminLogin';
+import ConsultaStatus from './components/Clientes/ConsultaStatus';
+
+// Importação de todos os dados do arquivo produtos.js
 import { bannerSlides, destaquesData, produtosData } from './data/produtos';
 import './App.css';
 
@@ -21,14 +26,18 @@ export default function App() {
   const [carrinhoAberto, setCarrinhoAberto] = useState(false);
   const [notificacao, setNotificacao] = useState('');
 
-  // Bloqueia a rolagem da página de fundo quando um modal ou o carrinho estiver aberto
+  // Estados para controlar os modais do Header
+  const [modalLoginAberto, setModalLoginAberto] = useState(false);
+  const [modalStatusAberto, setModalStatusAberto] = useState(false);
+
+  // Bloqueia a rolagem da página de fundo quando qualquer modal estiver aberto
   useEffect(() => {
-    if (produtoSelecionado || carrinhoAberto) {
+    if (produtoSelecionado || carrinhoAberto || modalLoginAberto || modalStatusAberto) {
       document.body.classList.add('modal-open');
     } else {
       document.body.classList.remove('modal-open');
     }
-  }, [produtoSelecionado, carrinhoAberto]);
+  }, [produtoSelecionado, carrinhoAberto, modalLoginAberto, modalStatusAberto]);
 
   // Função para adicionar item e quantidade ao pedido
   const handleAdicionarAoPedido = (produto, quantidade) => {
@@ -52,11 +61,6 @@ export default function App() {
   // Cálculos de totais
   const totalItens = pedidoItens.reduce((acc, item) => acc + item.quantidade, 0);
 
-  const valorTotal = pedidoItens.reduce((acc, item) => {
-    const preco = typeof item.preco === 'number' ? item.preco : 0;
-    return acc + preco * item.quantidade;
-  }, 0);
-
   // 2. SE A VISÃO FOR ADMIN, RENDERIZA O PAINEL DA CRIS
   if (visao === 'admin') {
     return <AdminLayout onSair={() => setVisao('cliente')} />;
@@ -65,37 +69,19 @@ export default function App() {
   // 3. SE FOR CLIENTE, RENDERIZA A LOJA NORMALMENTE
   return (
     <div className="app-container">
-      {/* Botão de Atalho para testar a Área Admin */}
-      <button 
-        style={{
-          position: 'fixed',
-          top: 15,
-          right: 15,
-          zIndex: 9999,
-          padding: '8px 16px',
-          borderRadius: '20px',
-          backgroundColor: '#E5A3B3',
-          color: '#fff',
-          border: 'none',
-          fontWeight: 'bold',
-          cursor: 'pointer'
-        }}
-        onClick={() => setVisao('admin')}
-      >
-        Ir para Admin ⚙️
-      </button>
-
       {/* Mensagem Toast de Confirmação */}
       {notificacao && <div className="toast-notification">{notificacao}</div>}
 
-      {/* Cabeçalho */}
+      {/* Cabeçalho integrado com as funções dos botões */}
       <Header 
         totalItensPedido={totalItens} 
         onAbrirCarrinho={() => setCarrinhoAberto(true)} 
+        onAbrirConsultaStatus={() => setModalStatusAberto(true)}
+        onAcessarAdmin={() => setModalLoginAberto(true)}
       />
 
       <main>
-        {/* Banner Carrossel com as fotos importadas */}
+        {/* Banner Carrossel */}
         <Banner slides={bannerSlides} />
 
         {/* Seção de Destaques */}
@@ -117,7 +103,25 @@ export default function App() {
       {/* Rodapé */}
       <Footer />
 
-      {/* Janela Modal de Especificações do Produto */}
+      {/* MODAL DE LOGIN ADMINISTRATIVO (COM BLUR) */}
+      {modalLoginAberto && (
+        <AdminLogin 
+          onClose={() => setModalLoginAberto(false)}
+          onLoginSucesso={() => {
+            setModalLoginAberto(false);
+            setVisao('admin'); // Direciona para o painel administrativo
+          }}
+        />
+      )}
+
+      {/* MODAL DE CONSULTA DE STATUS DO PEDIDO */}
+      {modalStatusAberto && (
+        <ConsultaStatus 
+          onClose={() => setModalStatusAberto(false)} 
+        />
+      )}
+
+      {/* JANELA MODAL DE DETALHES/ESPECIFICAÇÕES DO PRODUTO */}
       {produtoSelecionado && (
         <ModalProduto 
           produto={produtoSelecionado}
@@ -126,58 +130,27 @@ export default function App() {
         />
       )}
 
-      {/* Modal / Sacola de Pedidos */}
-      {carrinhoAberto && (
-        <div className="modal-overlay" onClick={() => setCarrinhoAberto(false)}>
-          <div className="carrinho-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="carrinho-header">
-              <h3>Sua Sacola de Pedidos</h3>
-              <button onClick={() => setCarrinhoAberto(false)}>✕</button>
-            </div>
-
-            <div className="carrinho-body">
-              {pedidoItens.length === 0 ? (
-                <p className="carrinho-vazio">Sua sacola está vazia.</p>
-              ) : (
-                pedidoItens.map((item) => (
-                  <div key={item.id} className="carrinho-item">
-                    <div>
-                      <strong className="carrinho-item-nome">{item.nome}</strong>
-                      <p className="carrinho-item-qtd">
-                        {item.quantidade}x {typeof item.preco === 'number' ? `R$ ${item.preco.toFixed(2)}` : ''}
-                      </p>
-                    </div>
-                    <span className="carrinho-item-subtotal">
-                      {typeof item.preco === 'number' 
-                        ? `R$ ${(item.preco * item.quantidade).toFixed(2)}` 
-                        : 'Sob consulta'}
-                    </span>
-                  </div>
-                ))
-              )}
-            </div>
-
-            {pedidoItens.length > 0 && (
-              <div className="carrinho-footer">
-                <div className="carrinho-total">
-                  <span>Total:</span>
-                  <strong>R$ {valorTotal.toFixed(2).replace('.', ',')}</strong>
-                </div>
-                <button 
-                  className="btn-finalizar-pedido"
-                  onClick={() => {
-                    alert('Pedido enviado com sucesso para o WhatsApp!');
-                    setPedidoItens([]);
-                    setCarrinhoAberto(false);
-                  }}
-                >
-                  Finalizar via WhatsApp
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      {/* MODAL DA SACOLA / CARRINHO (COMPONENTE DEDICADO EM ETAPAS) */}
+      <CarrinhoModal 
+        isOpen={carrinhoAberto}
+        onClose={() => setCarrinhoAberto(false)}
+        pedidoItens={pedidoItens}
+        onAtualizarQuantidade={(id, novaQtd) => {
+          if (novaQtd <= 0) {
+            setPedidoItens(prev => prev.filter(item => item.id !== id));
+          } else {
+            setPedidoItens(prev => prev.map(item => item.id === id ? { ...item, quantidade: novaQtd } : item));
+          }
+        }}
+        onRemoverItem={(id) => {
+          setPedidoItens(prev => prev.filter(item => item.id !== id));
+        }}
+        onFinalizarPedido={(dadosCliente, retirarLocal) => {
+          alert('Pedido finalizado com sucesso! Redirecionando para o WhatsApp da Cris...');
+          setPedidoItens([]);
+          setCarrinhoAberto(false);
+        }}
+      />
     </div>
   );
 }

@@ -5,7 +5,7 @@ import './ListaProdutos.css';
 export default function ListaProdutos({ produtos, onSelecionarProduto }) {
   const [categoriaAtiva, setCategoriaAtiva] = useState('Todas');
 
-  const categorias = ['Todas', 'Trufas', 'Brigadeiros', 'Bombons'];
+  const categorias = ['Todas', 'Trufas', 'Brigadeiros', 'Bombons', 'Pão de mel', 'Sazonais'];
 
   const produtosFiltrados = categoriaAtiva === 'Todas' 
     ? produtos 

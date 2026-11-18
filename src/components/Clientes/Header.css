@@ -239,3 +239,363 @@
     font-size: 1rem;
   }
 }
+
+
+/* Container da barra de pesquisa */
+.header-search-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  padding: 18px 20px;
+  background-color: #FAF5EF;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.10);
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+/* Formulário de pesquisa */
+.header-search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* Campo de pesquisa */
+.header-search-form input {
+  flex: 1;
+  min-width: 0;
+  height: 45px;
+  padding: 0 15px;
+  border: 1px solid #D8C9BD;
+  border-radius: 25px;
+  outline: none;
+  background: #FFFFFF;
+  color: #7D6E65;
+  font-size: 14px;
+}
+
+.header-search-form input:focus {
+  border-color: #7D6E65;
+  box-shadow: 0 0 0 2px rgba(125, 110, 101, 0.12);
+}
+
+.header-search-form input::placeholder {
+  color: #A99B92;
+}
+
+/* Botão pesquisar */
+.header-search-form button[type="submit"] {
+  height: 45px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 25px;
+  background-color: #7D6E65;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.header-search-form button[type="submit"]:hover {
+  background-color: #65564E;
+}
+
+/* Botão fechar */
+.header-search-form .search-close {
+  border: none;
+  background: transparent;
+  color: #7D6E65;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* Mensagem de resultado */
+.search-message {
+  max-width: 650px;
+  margin: 10px auto 0;
+  color: #7D6E65;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* Ícone da lupa */
+.btn-icon-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7D6E65;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.btn-icon-action:hover {
+  color: #A58D7C;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .header-search-container {
+    padding: 15px 12px;
+  }
+
+  .header-search-form {
+    gap: 6px;
+  }
+
+  .header-search-form input {
+    font-size: 13px;
+    padding: 0 10px;
+  }
+
+  .header-search-form button[type="submit"] {
+    padding: 0 13px;
+    font-size: 12px;
+  }
+}
+
+/* Área de pesquisa */
+.header-search-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background: #FAF5EF;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+  z-index: 9999;
+  box-sizing: border-box;
+}
+
+/* Formulário */
+.header-search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.header-search-form input {
+  flex: 1;
+  min-width: 0;
+  height: 45px;
+  padding: 0 15px;
+  border: 1px solid #D8C9BD;
+  border-radius: 25px;
+  background: #FFFFFF;
+  color: #7D6E65;
+  outline: none;
+  font-size: 14px;
+}
+
+.header-search-form input:focus {
+  border-color: #7D6E65;
+}
+
+.header-search-form button[type="submit"] {
+  height: 45px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 25px;
+  background: #7D6E65;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.header-search-form button[type="submit"]:hover {
+  background: #65564E;
+}
+
+.header-search-form .search-close {
+  border: none;
+  background: transparent;
+  color: #7D6E65;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Resultados */
+.search-results {
+  max-width: 700px;
+  max-height: 380px;
+  overflow-y: auto;
+  margin: 15px auto 0;
+}
+
+.search-results-title {
+  color: #7D6E65;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+/* Lista de produtos encontrados */
+.search-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  text-decoration: none;
+  color: #7D6E65;
+  transition: 0.3s;
+}
+
+.search-result-item:hover {
+  background: #F0E6DE;
+  transform: translateX(3px);
+}
+
+.search-result-item img {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.search-result-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.search-result-info h4 {
+  margin: 0;
+  font-size: 14px;
+  color: #7D6E65;
+}
+
+.search-result-info span {
+  font-size: 12px;
+  color: #A99B92;
+}
+
+.search-result-info strong {
+  font-size: 14px;
+  color: #7D6E65;
+}
+
+/* Nenhum resultado */
+.search-no-results {
+  padding: 25px 10px;
+  text-align: center;
+  color: #7D6E65;
+}
+
+.search-no-results span {
+  font-size: 30px;
+}
+
+.search-no-results p {
+  font-weight: 600;
+  margin: 8px 0;
+}
+
+.search-no-results small {
+  color: #A99B92;
+}
+
+/* Botão da lupa */
+.btn-icon-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #7D6E65;
+  cursor: pointer;
+}
+
+.btn-icon-action:hover {
+  color: #A58D7C;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .header-search-container {
+    padding: 15px 12px;
+  }
+
+  .header-search-form {
+    gap: 6px;
+  }
+
+  .header-search-form input {
+    font-size: 12px;
+    padding: 0 10px;
+  }
+
+  .header-search-form button[type="submit"] {
+    padding: 0 13px;
+    font-size: 12px;
+  }
+
+  .search-result-item img {
+    width: 55px;
+    height: 55px;
+  }
+
+  .search-result-info h4 {
+    font-size: 13px;
+  }
+}
+/* Botão de Status no Topo */
+.btn-status-topo {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  color: var(--text-dark);
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  padding: 0.4rem 0.7rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-status-topo:hover {
+  border-color: var(--pink-primary);
+  color: var(--pink-hover);
+  background-color: rgba(255, 249, 245, 0.6);
+}
+
+/* Botão Admin Direto */
+.btn-admin-topo {
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1px dashed var(--border-color);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-admin-topo:hover {
+  background-color: var(--pink-primary);
+  color: #fff;
+  border-style: solid;
+  border-color: var(--pink-primary);
+}
+
+@media (max-width: 768px) {
+  .status-text-desktop {
+    display: none;
+  }
+}

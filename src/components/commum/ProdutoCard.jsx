@@ -21,30 +21,6 @@ export default function ProdutoCard({ produto, onAcao, modo = 'cliente' }) {
               <span className="produto-card-unidade">{produto.unidadesInfo}</span>
             )}
           </div>
-
-          {/* Renderização condicional consoante o modo */}
-          {modo === 'cliente' ? (
-            <button 
-              className="btn-add-icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                onAcao(produto);
-              }}
-              title="Adicionar ao pedido"
-            >
-              🛍️
-            </button>
-          ) : (
-            <button 
-              className="btn-editar-admin"
-              onClick={(e) => {
-                e.stopPropagation();
-                onAcao(produto);
-              }}
-            >
-              Editar
-            </button>
-          )}
         </div>
       </div>
     </div>

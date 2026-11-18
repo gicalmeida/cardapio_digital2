@@ -1,0 +1,166 @@
+
+.status-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+}
+
+.status-modal-card {
+  background-color: #FAF5EF;
+  width: 100%;
+  max-width: 480px;
+  padding: 2.5rem 2rem;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  position: relative;
+  text-align: center;
+  border: 1px solid #f2d6dc;
+}
+
+.status-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.status-logo {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--pink-primary);
+  margin-bottom: 0.8rem;
+}
+
+.status-header h2 {
+  font-family: var(--font-serif);
+  color: var(--text-dark);
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.status-time {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.status-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.status-form label {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.status-input-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.status-input-group input {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  outline: none;
+  background: #fff;
+  font-size: 0.95rem;
+}
+
+.status-input-group input:focus {
+  border-color: var(--pink-primary);
+}
+
+.status-input-group button, .btn-nova-consulta {
+  background-color: var(--pink-primary);
+  color: #fff;
+  border: none;
+  padding: 0 1.4rem;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.status-input-group button:hover, .btn-nova-consulta:hover {
+  background-color: var(--pink-hover);
+}
+
+.error-msg {
+  color: #d9534f;
+  font-size: 0.8rem;
+}
+
+/* Steps grid estilo protótipo */
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  margin-top: 1rem;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
+.step-item.active {
+  opacity: 1;
+}
+
+.step-circle {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 1px dashed var(--pink-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  background: #FFF9F5;
+}
+
+.step-item.active .step-circle {
+  border-style: solid;
+  border-color: #5cb85c;
+  background: #f0fff0;
+}
+
+.step-item span {
+  font-size: 0.8rem;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.btn-nova-consulta {
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.2rem;
+  width: 100%;
+}

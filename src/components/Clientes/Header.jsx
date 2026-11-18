@@ -2,8 +2,20 @@ import React, { useState } from 'react';
 import './Header.css';
 import logo from '../../assets/logo.jpeg';
 
-export default function Header({ totalItensPedido, onAbrirCarrinho }) {
+// Importa os produtos do data.js
+import { produtosData, destaquesData } from '../../data/produtos.js';
+
+export default function Header({ 
+  totalItensPedido, 
+  onAbrirCarrinho, 
+  onAbrirConsultaStatus, // <-- Nova prop recebida aqui
+  onAcessarAdmin          // <-- Nova prop recebida aqui
+}) {
   const [menuAberto, setMenuAberto] = useState(false);
+  const [pesquisaAberta, setPesquisaAberta] = useState(false);
+  const [termoPesquisa, setTermoPesquisa] = useState('');
+  const [resultados, setResultados] = useState([]);
+  const [pesquisaRealizada, setPesquisaRealizada] = useState(false);
 
   const toggleMenu = () => {
     setMenuAberto(!menuAberto);
@@ -11,6 +23,62 @@ export default function Header({ totalItensPedido, onAbrirCarrinho }) {
 
   const fecharMenu = () => {
     setMenuAberto(false);
+  };
+
+  // Normaliza o texto para ignorar acentos e maiúsculas
+  const normalizarTexto = (texto) => {
+    return String(texto || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+  };
+
+  // Pesquisa nos produtos e destaques do data.js
+  const pesquisarProdutos = (e) => {
+    e.preventDefault();
+
+    const termo = normalizarTexto(termoPesquisa);
+
+    if (!termo) {
+      setResultados([]);
+      setPesquisaRealizada(false);
+      return;
+    }
+
+    const catalogo = [
+      ...destaquesData,
+      ...produtosData
+    ];
+
+    const catalogoUnico = catalogo.filter((produto, index, array) => {
+      return array.findIndex(
+        item => normalizarTexto(item.nome) === normalizarTexto(produto.nome)
+      ) === index;
+    });
+
+    const encontrados = catalogoUnico.filter((produto) => {
+      const conteudo = normalizarTexto([
+        produto.nome,
+        produto.categoria,
+        produto.descricaoCurta,
+        produto.descricao,
+        produto.unidadesInfo
+      ].join(' '));
+
+      const palavras = termo.split(/\s+/);
+      return palavras.every(palavra => conteudo.includes(palavra));
+    });
+
+    setResultados(encontrados);
+    setPesquisaRealizada(true);
+  };
+
+  const fecharPesquisa = () => {
+    setPesquisaAberta(false);
+    setTermoPesquisa('');
+    setResultados([]);
+    setPesquisaRealizada(false);
   };
 
   return (
@@ -28,7 +96,6 @@ export default function Header({ totalItensPedido, onAbrirCarrinho }) {
             alt="Logo Cantinho Doces da Cris"
             className="logo-icon"
           />
-
           <span className="logo-text">
             Cantinho Doces da Cris
           </span>
@@ -42,15 +109,41 @@ export default function Header({ totalItensPedido, onAbrirCarrinho }) {
           <a href="#sobre" onClick={fecharMenu}>Sobre</a>
         </nav>
 
-        {/* Ações do cabeçalho */}
+        {/* Ações do cabeçalho (ONDE OS BOTÕES DEVEM ENTRAR) */}
         <div className="header-actions">
+
+          {/* 1. Botão de Consultar Status */}
+          <button
+            className="btn-status-topo"
+            onClick={onAbrirConsultaStatus}
+            title="Consultar Status do Pedido"
+            aria-label="Consultar Status do Pedido"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            <span className="status-text-desktop">Status</span>
+          </button>
+
+          {/* 2. Botão do Carrinho */}
           <button
             className="btn-carrinho-topo"
             onClick={onAbrirCarrinho}
             title="Ver Sacola de Pedidos"
           >
             <span className="cart-text">Carrinho</span>
-
             {totalItensPedido > 0 && (
               <span className="cart-badge">
                 {totalItensPedido}
@@ -58,15 +151,38 @@ export default function Header({ totalItensPedido, onAbrirCarrinho }) {
             )}
           </button>
 
-          <a
-            href="#pesquisa"
+          {/* 3. Lupa de pesquisa */}
+          <button
             className="btn-icon-action"
-            title="Pesquisar"
+            onClick={() => setPesquisaAberta(!pesquisaAberta)}
+            title="Pesquisar produtos"
             aria-label="Pesquisar produtos"
+            aria-expanded={pesquisaAberta}
           >
-            🔍
-          </a>
+            <svg
+              viewBox="0 0 24 24"
+              width="23"
+              height="23"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-4-4" />
+            </svg>
+          </button>
 
+          {/* 4. Botão de Acesso Administrativo Direto */}
+          <button
+            className="btn-admin-topo"
+            onClick={onAcessarAdmin}
+            title="Área Administrativa"
+          >
+            Admin
+          </button>
+
+          {/* 5. Menu mobile */}
           <button
             className="menu-mobile-btn"
             onClick={toggleMenu}
@@ -75,9 +191,71 @@ export default function Header({ totalItensPedido, onAbrirCarrinho }) {
           >
             {menuAberto ? '✕' : '☰'}
           </button>
-        </div>
 
+        </div>
       </div>
+
+      {/* Área de pesquisa (mantida igual) */}
+      {pesquisaAberta && (
+        <div className="header-search-container">
+          <form onSubmit={pesquisarProdutos} className="header-search-form">
+            <input
+              type="search"
+              placeholder="O que você está procurando?"
+              value={termoPesquisa}
+              onChange={(e) => {
+                setTermoPesquisa(e.target.value);
+                setPesquisaRealizada(false);
+                setResultados([]);
+              }}
+              autoFocus
+            />
+            <button type="submit">Pesquisar</button>
+            <button
+              type="button"
+              className="search-close"
+              hook={fecharPesquisa}
+              onClick={fecharPesquisa}
+              aria-label="Fechar pesquisa"
+            >
+              ✕
+            </button>
+          </form>
+
+          {pesquisaRealizada && (
+            <div className="search-results">
+              {resultados.length > 0 ? (
+                <>
+                  <p className="search-results-title">
+                    Encontramos {resultados.length} produto(s):
+                  </p>
+                  <div className="search-results-list">
+                    {resultados.map((produto) => (
+                      <a
+                        href="#produtos"
+                        className="search-result-item"
+                        key={produto.id}
+                        onClick={fecharPesquisa}
+                      >
+                        <img src={produto.imagem} alt={produto.nome} />
+                        <div className="search-result-info">
+                          <h4>{produto.nome}</h4>
+                          <span>{produto.categoria || 'Doce artesanal'}</span>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className="search-no-results">
+                  <span>🍬</span>
+                  <p>Nenhum produto encontrado.</p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
     </header>
   );
 }
