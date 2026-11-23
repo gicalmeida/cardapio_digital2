@@ -1,0 +1,124 @@
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Toast de Confirmação */
+.toast-notification {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--text-dark);
+  color: #ffffff;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  z-index: 2000;
+  box-shadow: var(--shadow-modal);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translate(-50%, 20px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+/* Modal do Carrinho */
+.carrinho-modal {
+  background-color: #FAF5EF;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+}
+
+.carrinho-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.carrinho-header h3 {
+  font-family: var(--font-serif);
+}
+
+.carrinho-header button {
+  background: none;
+  font-size: 1.2rem;
+}
+
+.carrinho-body {
+  overflow-y: auto;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.carrinho-vazio {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 2rem 0;
+}
+
+.carrinho-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.carrinho-item-nome {
+  font-size: 0.85rem;
+  display: block;
+}
+
+.carrinho-item-qtd {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.carrinho-item-subtotal {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.carrinho-footer {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.carrinho-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.btn-finalizar-pedido {
+  width: 100%;
+  background-color: #25D366;
+  color: #fff;
+  padding: 0.7rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.btn-finalizar-pedido:hover {
+  background-color: #20bd5a;
+}

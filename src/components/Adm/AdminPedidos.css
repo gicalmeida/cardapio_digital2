@@ -1,0 +1,63 @@
+.admin-pedidos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.admin-pedidos-container h3 {
+  font-family: var(--font-serif, serif);
+  color: #5c4033;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.tabela-pedidos-wrapper {
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #f2d6dc;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.tabela-pedidos {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tabela-pedidos th {
+  background-color: #fff0f3;
+  color: #5c4033;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+.tabela-pedidos td {
+  padding: 1rem;
+  border-top: 1px solid #f2d6dc;
+  color: #4a3b32;
+  font-size: 0.9rem;
+}
+
+/* Etiquetas de Status */
+.status-tag {
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-tag.novo {
+  background-color: #ffe6e6;
+  color: #d93838;
+}
+
+.status-tag.em-preparo {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-tag.pronto {
+  background-color: #d4edda;
+  color: #155724;
+}
